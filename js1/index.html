@@ -19,74 +19,63 @@
 <body>
 
   <div class="container pt-5">
-    <form class="my-form" novalidate>
+    <form class="my-form" onsubmit="submitThis(event)" novalidate>
       <div class="col-5">
         <div class="mb-3">
           <label for="firstName" class="form-label">Förnamn</label>
-          <input type="text" class="form-control" id="firstName">
+          <input type="text" class="form-control" id="firstName" name="firstName">
           <div id="firstNameResponse" class="form-text">Skriv ditt förnamn i rutan.</div>
         </div>
         <div class="mb-3">
           <label for="lastName" class="form-label">Efternamn</label>
-          <input type="text" class="form-control" id="lastName">
+          <input type="text" class="form-control" id="lastName" name="lastName">
           <div id="lastNameResponse" class="form-text">Skriv ditt efternamn i rutan.</div>
         </div>
-        <div class="mb-3">
-          <label for="birthYear" class="form-label">Födelsedatum-år OBS Du måste vara 18 för att registrera dig</label>
-          <input type="text" class="form-control" id="birthYear">
-          <div id="birthYearResponse" class="form-text">Skriv ditt födelseår i rutan.</div>
-        </div>
-        <div class="mb-3">
-          <label for="birthMonth" class="form-label">Födelsedatum-månad</label>
-          <input type="text" class="form-control" id="birthMonth">
-          <div id="birthMonthResponse" class="form-text">Skriv din födelsemånad i rutan.</div>
-        </div>
+        
         <div class="mb-3">
           <label for="birthday" class="form-label">Födelsedatum</label>
-          <input type="text" class="form-control" id="birthday" placeholder="åååå-mm-dd">
-          <div id="birthdayResponse" class="form-text">Skriv ditt födelsedatum i rutan.</div>
+          <input type="text" class="form-control" id="birthday" placeholder="åååå-mm-dd" name="birthday">
+          <div id="birthdayResponse" class="form-text">Skriv ditt födelsedatum i rutan i formatet åååå-mm-dd, glöm inte bindestreck.</div>
         </div>
       </div>
       <div class="flexdiv col-5">
         <div class="mb-3">
-          <label for="email" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="email">
+          <label for="email" class="form-label">E-postadress </label>
+          <input type="email" class="form-control" id="email" name="email">
           <div id="emailResponse" class="form-text">Skriv din e-postadress i rutan.</div>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Välj ett lösenord</label>
-          <input type="password" class="form-control" id="password">
+          <input type="password" class="form-control" id="password" name="password">
           <p id="passwordResponse" class="text-danger"><small></small></p>
         </div>
         <div class="mb-3">
-          <label for="confirmPassword" class="form-label">Bekräfta lösenord</label>
-          <input type="password" class="form-control" id="confirmPassword">
+          <label for="confirmPassword" id="labelConfirmPassword" class="form-label">Bekräfta lösenord</label>
+          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
           <p id="confirmPasswordResponse" class="text-danger"><small></small></p>
         </div>
 
 
         <div class="mb-3">
-          <label for="streetAdress" class="form-label">Gatuadress</label>
-          <input type="text" class="form-control" id="streetAdress">
+          <label for="streetAdress"  class="form-label">Gatuadress</label>
+          <input type="text" class="form-control" id="streetAdress" name="streetAdress">
           <div id="streetAdressResponse" class="form-text">Skriv din gatuadress i rutan.</div>
         </div>
         <div class="postnummer-stad d-flex">
           <div class="mb-3 me-3">
             <label for="postnumber" class="form-label">Postnummer</label>
-            <input type="text" class="form-control" id="postnumber">
+            <input type="text" class="form-control" id="postnumber" name="postnumber"> 
             <div id="postnumberResponse" class="form-text">Skriv ditt postnummer i rutan.</div>
           </div>
           <div class="mb-3">
             <label for="city" class="form-label">Ort</label>
-            <input type="text" class="form-control" id="city">
+            <input type="text" class="form-control" id="city" name="city">
             <div id="cityResponse" class="form-text">Skriv din levnadsort i rutan.</div>
           </div>
         </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="ageCheck">
-          <label class="form-check-label" for="ageChech">Jag är över 18 år gammal</label>
-        </div>
-        <button type="submit" id="submitForm" class="btn btn-primary">Submit</button>
+        
+        <button type="submit"  id="submitForm" class="btn btn-primary">Submit</button>
+        <div id="submitRespons"></div>
       </div>
     </form>
   </div>
