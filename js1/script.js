@@ -16,22 +16,23 @@ const city= document.getElementById('city')
 const cityResponse= document.getElementById('cityResponse')
 const submitRespons = document.getElementById('submitRespons')
 
-function validateLength (value1, minValue="2", validateObject, messagePlace, message) {
-    if (value1 < minValue) {
-            messagePlace.innerText = `${validateObject} måste innehålla minst ${minValue} tecken`
-        } else {
-            messagePlace.innerText = `${message}`            
-    }
-}
+
 
 const nameRegex = /^[A-Z,ÅÄÖ][a-öA-Ö]+(\-[A-Z,ÅÄÖ][a-ö]+)?$/
-
+let validFirstName = false
+let validLastName = false
 function validateName (value1, validateObject, messagePlace, message) {
     if (!nameRegex.test(value1)) {
             messagePlace.innerText = `${validateObject} måste innehålla minst två bokstäver och börja med stor bokstav. Skriv dubbelnamn Aa-Aa`
         } else {
-            messagePlace.innerText = `${message}`  
-                   
+            messagePlace.innerText = `${message}` 
+            switch (messagePlace) {
+                case firstNameResponse: validFirstName = true
+                    break
+                case lastNameResponse: validLastName = true
+                    break
+            } 
+            console.log('firstname: ', validFirstName, 'lastname:', validLastName)       
     }
 }
 
@@ -60,6 +61,7 @@ function check18 (date) {
     console.log('check 18:', isEighteen)
 }
 
+let validEmail = false
 function validateEmail(e) {
     const regEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
    if (!regEx.test(e)) {
@@ -67,10 +69,11 @@ function validateEmail(e) {
        emailResponse.style.colorImportant="text-warning"
    } else {       
        emailResponse.innerText="giltig e-postadress"
-       
+       validEmail = true
    }
 }
 
+let validPassword = false
 const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 function regexPasswordValid(e) {
     if(!regexPassword.test(e)) {
@@ -78,31 +81,33 @@ function regexPasswordValid(e) {
         document.getElementById('passwordResponse').classList.add('text-success')
     } else {
         passwordResponse.innerText = 'Godkänt lösenord'
-        
+        validPassword = true
     }
 }
+
+let validConfirmPassword = false
 function validateConfirmPassword(password, confirmPassword) {
     if (password === confirmPassword.target.value) {
         confirmPasswordResponse.innerText = 'Lösenorden matchar'
         document.getElementById('confirmPasswordResponse').classList.add('text-success')
-        
+        validConfirmPassword = true
     } else {
         confirmPasswordResponse.innerText = 'Lösenorden matchar inte'
       
     }
 }
 
-
-const streetRegex = /^[A-ZÅÄÖ][a-öA-Ö]+ ?([A-Ö-a-ö]{2,})? ?([A-Ö-a-ö]{2,})? ?([0-9]+)[a-öA-Ö]?$/   //hyfsad
+let validStreetAdress = false
+const streetRegex = /^[A-ZÅÄÖ][a-öA-Ö]+ ?([A-Ö-a-ö]{2,})? ?([A-Ö-a-ö]{2,})? ?([0-9]+)[a-öA-Ö]?$/
 function validateStreetName (e) {
     if (!streetRegex.test(e)) {
             streetAdressResponse.innerText = `Skriv giltig gatuadress enligt följande Storgatan 1B, eller Mäster Henriks Allé 42`
         } else {
             streetAdressResponse.innerText = `Giltig gatuadress` 
-                    
+            validStreetAdress = true       
     }
 }
-
+let validPostnumber = false
 const postnumberRegex = /^[0-9]{3} ?[0-9]{2}$/
 
 function validatePostnumber (e) {
@@ -110,10 +115,11 @@ function validatePostnumber (e) {
             postnumberResponse.innerText = `Postnumret måste ha fem siffror.`
         } else {
             postnumberResponse.innerText = `Giltigt postnummer`    
-                   
+            validPostnumber = true       
     }
 }
 
+let validCity = false
 const cityRegex = /^[A-Z,ÅÄÖ][a-öA-Ö]+( [a-öA-Ö]+)?(\-[a-öA-Ö]+)?$/
 
 function validateCity (e) {
@@ -121,15 +127,15 @@ function validateCity (e) {
             cityResponse.innerText = `Ortnamnet måste ha minst två bokstäver.`
         } else {
             cityResponse.innerText = `Giltigt ortnamn`    
-                   
+            validCity = true       
     }
 }
 function submitThis(event) {
     
-    if(!isEighteen) {
+    if(!isEighteen || !validFirstName || !validLastName || !validEmail || !validPassword || !validConfirmPassword || !validStreetAdress || !validPostnumber || !validCity) {
         event.preventDefault()
-        console.log(isEighteen)
-        submitRespons.innerText = "Du kan inte registrera dig"
+        console.log('ej reg')
+        submitRespons.innerText = "Du är under 18 och kan inte registrera dig eller har inte fyllt i uppgifterna korrekt."
     }
     else {
         console.log(isEighteen)
@@ -165,11 +171,14 @@ postnumber.addEventListener('keyup', function(e) {
     validatePostnumber(e.target.value)
 })
 city.addEventListener('keyup', function(e) {
-    validateCity(e.target.value)
+    validateRegex(e.target.value, cityRegex)
 })
 
-
-
+function validateRegex (e, myRegex) {
+    if (!myRegex.test(e)) console.log('no')
+        // switch med message utifrån vilken regex
+    else console.log('yes')
+}
 
 
 //86,400,000 = 1 dag
