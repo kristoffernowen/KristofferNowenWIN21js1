@@ -44,7 +44,7 @@ function check18 (date) {
             isEighteen = true
             birthdayResponse.innerText ='Du är över 18 och kan registrera dig'
         } else if(Date.parse(date) > Date.parse(today)-568080000000) {
-            
+            isEighteen = false
             birthdayResponse.innerText= 'Du är under 18 och kan ej registrera dig'
         }
         else {
@@ -62,53 +62,7 @@ email.addEventListener("keyup", function(e) {
 let validEmail = false
 const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-function validateRegex (e, myRegex) {
-    if (!myRegex.test(e)) {
-        switch (myRegex) {
-            case postnumberRegex: postnumberResponse.innerText = `Postnumret måste ha fem siffror.`
-                validPostnumber = false
-                break
-            case cityRegex: cityResponse.innerText = `Ortnamnet måste ha minst två bokstäver och börja med stor bokstav.`
-                validCity = false
-                break
-            case streetRegex: streetAdressResponse.innerText = `Skriv giltig gatuadress enligt följande Storgatan 1B, eller Mäster Henriks Allé 42`
-                validStreetAdress = false
-                break
-            case regexPassword: passwordResponse.innerText = 'ogiltigt lösenord'
-                passwordResponse.style.color="red"
-                validPassword = false
-                break
-            case regexEmail: emailResponse.innerText="ogiltig e-postadress"
-                emailResponse.style.color="red"
-                validEmail = false
-                break
-            default: break
-        }
-    }
-    else {
-        switch (myRegex) {
-            case postnumberRegex: postnumberResponse.innerText = `Giltigt postnummer`    
-                validPostnumber = true 
-                break
-            case cityRegex: cityResponse.innerText = `Giltigt ortnamn`    
-                validCity = true 
-                break 
-            case streetRegex: streetAdressResponse.innerText = `Giltig gatuadress` 
-                validStreetAdress = true  
-                break
-            case regexPassword: passwordResponse.innerText = 'Godkänt lösenord'
-                passwordResponse.style.color="green"
-                validPassword = true
-                break
-            case regexEmail: emailResponse.innerText="giltig e-postadress"
-                emailResponse.style.color="green"
-                validEmail = true
-                break
-            default:
-                break
-        }
-    }
-}
+
 
 const password = document.getElementById('password')
 const passwordResponse = document.getElementById('passwordResponse')
@@ -173,7 +127,56 @@ city.addEventListener('keyup', function(e) {
     validateRegex(e.target.value, cityRegex)
 })
 
+function validateRegex (e, myRegex) {
+    if (!myRegex.test(e)) {
+        switch (myRegex) {
+            case postnumberRegex: postnumberResponse.innerText = `Postnumret måste ha fem siffror.`
+                validPostnumber = false
+                break
+            case cityRegex: cityResponse.innerText = `Ortnamnet måste ha minst två bokstäver och börja med stor bokstav.`
+                validCity = false
+                break
+            case streetRegex: streetAdressResponse.innerText = `Skriv giltig gatuadress enligt följande Storgatan 1B, eller Mäster Henriks Allé 42`
+                validStreetAdress = false
+                break
+            case regexPassword: passwordResponse.innerText = 'ogiltigt lösenord'
+                passwordResponse.style.color="red"
+                validPassword = false
+                break
+            case regexEmail: emailResponse.innerText="ogiltig e-postadress"
+                emailResponse.style.color="red"
+                validEmail = false
+                break
+            default: break
+        }
+    }
+    else {
+        switch (myRegex) {
+            case postnumberRegex: postnumberResponse.innerText = `Giltigt postnummer`    
+                validPostnumber = true 
+                break
+            case cityRegex: cityResponse.innerText = `Giltigt ortnamn`    
+                validCity = true 
+                break 
+            case streetRegex: streetAdressResponse.innerText = `Giltig gatuadress` 
+                validStreetAdress = true  
+                break
+            case regexPassword: passwordResponse.innerText = 'Godkänt lösenord'
+                passwordResponse.style.color="green"
+                validPassword = true
+                break
+            case regexEmail: emailResponse.innerText="giltig e-postadress"
+                emailResponse.style.color="green"
+                validEmail = true
+                break
+            default:
+                break
+        }
+    }
+}
+
 const submitRespons = document.getElementById('submitRespons')
+
 function submitThis(event) {
     
     if(!isEighteen || !validFirstName || !validLastName || !validEmail || !validPassword || !validConfirmPassword || !validStreetAdress || !validPostnumber || !validCity) {
